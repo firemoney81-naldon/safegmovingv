@@ -1,23 +1,523 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+        
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            color: #383e42;
+            background: #f0f4f8; /* 부드러운 배경색 */
+        }
+        header, nav, section, footer {
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* 부드러운 그림자 */
+        }
+        header {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* 그라데이션 헤더 */
+            color: #ffffff;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        header h1 {
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        header p {
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        nav {
+            background: #3498db; /* 시원한 네비게이션 색상 */
+            border-radius: 12px;
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+        nav a {
+            color: #ffffff;
+            margin: 0 15px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: color 0.3s, background-color 0.3s;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        nav a:hover {
+            color: #ffd700; /* 호버 시 강조 */
+            background-color: rgba(255, 255, 255, 0.1);
+            text-decoration: none;
+        }
+        h2 {
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 8px;
+            margin-bottom: 25px;
+            color: #2c3e50;
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        h3 {
+            color: #e74c3c; /* 강조 색상 */
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        .info_card, .tip_card {
+            border: 1px solid #dcdcdc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background: #ffffff;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+        .info_card:hover {
+            box-shadow: 0 6px 18px rgba(52, 152, 219, 0.3);
+            transform: translateY(-3px);
+        }
+        .cta {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .cta:hover {
+            background-color: #c0392b;
+            transform: translateY(-1px);
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            margin-top: 15px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        form input, form select, form textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 4px;
+            border-radius: 6px;
+            border: 1px solid #bdc3c7;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+        form input:focus, form select:focus, form textarea:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+        form button {
+            margin-top: 25px;
+            width: 100%;
+            cursor: pointer;
+        }
+        dl.faq dt {
+            font-weight: 700;
+            margin-top: 25px;
+            color: #3498db;
+            font-size: 1.1rem;
+        }
+        dl.faq dd {
+            margin-left: 0;
+            margin-top: 8px;
+            padding-left: 15px;
+            border-left: 3px solid #ecf0f1;
+            color: #555555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        table th {
+            background-color: #3498db;
+            color: white;
+            font-weight: 600;
+        }
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        table tr:hover {
+            background-color: #e9f5ff;
+        }
+        .external-link {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .external-link:hover {
+            text-decoration: underline;
+        }
+        .text-section {
+            padding: 20px 0;
+            color: #555555;
+            text-align: justify;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context":"https://schema.org",
+        "@type":"Service",
+        "name":"포장이사박스 표준 및 친환경 가이드",
+        "image":"https://www.yourdomain.kr/images/box_standard.png",
+        "description": "포장이사 시 사용되는 박스의 표준 규격, 친환경 재활용 정보, 그리고 전국 이사 비용 절감 노하우를 제공합니다.",
+        "provider": {
+            "@type": "Organization",
+            "name": "이사박스 전문가 그룹",
+            "telephone":"010-1234-5678",
+            "address":{
+                "@type":"PostalAddress",
+                "streetAddress":"전국 표준 포장이사박스 정보 제공",
+                "addressLocality":"대한민국",
+                "addressRegion":"전국",
+                "postalCode":"00000",
+                "addressCountry":"KR"
+            }
+        },
+        "areaServed":"대한민국 전역",
+        "hasOfferCatalog":{
+            "@type":"OfferCatalog",
+            "name":"이사 박스 정보 제공",
+            "itemListElement":[
+                {"@type":"Offer","itemOffered":{"@type":"Service","name":"포장이사 박스 규격 가이드"}},
+                {"@type":"Offer","itemOffered":{"@type":"Service","name":"친환경 박스 재활용 정보"}},
+                {"@type":"Offer","itemOffered":{"@type":"Service","name":"지역별 이사 박스 물량 분석"}},
+                {"@type":"Offer","itemOffered":{"@type":"Service","name":"이사 비용 절감 팁"}},
+                {"@type":"Offer","itemOffered":{"@type":"Service","name":"2026년 이사 트렌드 분석"}}
+            ]
+        }
+    }
+    </script>
+</head>
+<body>
+
+<header id="top">
+    <h1>2026년 포장이사박스: 표준 규격, 친환경 재활용 및 완벽 가이드</h1>
+    <p>가장 안전하고 효율적인 이사를 위한 <strong>포장이사박스</strong>의 모든 것을 지금 바로 확인하세요!</p>
+    <a href="#quote_request" class="cta">2026년 맞춤 이사 박스 물량 예측하기</a>
+</header>
+
+<nav>
+    <a href="#standard">표준 규격</a>
+    <a href="#recycling">친환경 재활용</a>
+    <a href="#guide">전문 가이드</a>
+    <a href="#keywords">전국 키워드 분석</a>
+    <a href="#quote_request">상세 견적 요청</a>
+</nav>
+
+<section id="standard" aria-label="포장이사박스 표준 규격 및 종류">
+    <h2>🚚 포장이사박스 표준 규격 및 종류</h2>
+    <div class="info_card">
+        <h3>포장이사박스 표준 규격 (2026년 기준)</h3>
+        <p>포장이사 시 사용되는 박스는 내용물의 특성과 무게에 따라 다양한 규격으로 표준화되어 사용됩니다. 올바른 규격 사용은 물품의 안전을 보장하고 운송 효율을 극대화합니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>분류</th>
+                    <th>규격 (가로 x 세로 x 높이, mm)</th>
+                    <th>주요 용도</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>대 박스 (Heavy Duty)</td>
+                    <td>600 x 400 x 400</td>
+                    <td>부피가 크고 가벼운 물품 (의류, 이불, 플라스틱 용품)</td>
+                </tr>
+                <tr>
+                    <td>중 박스 (General)</td>
+                    <td>500 x 350 x 350</td>
+                    <td>일반 생활용품, 주방용품, 책, 잡화 등 (가장 보편적)</td>
+                </tr>
+                <tr>
+                    <td>소 박스 (Book/Fragile)</td>
+                    <td>400 x 300 x 300</td>
+                    <td>무거운 물품 (책, 파일), 깨지기 쉬운 물품 (도자기, 유리)</td>
+                </tr>
+                <tr>
+                    <td>특수 박스 (Flat)</td>
+                    <td>별도 규격</td>
+                    <td>액자, 거울, 모니터 등 평평하고 얇은 물품</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>이사할 물품의 종류와 양에 따라 전문적인 이사 업체는 이 표준 규격 박스를 적절히 혼합하여 사용하며, 특히 무게가 나가는 물품에는 작은 박스를 사용하여 박스 파손과 내용물 손상을 방지하는 것이 중요합니다. </p>
+    </div>
+
+    <div class="info_card">
+        <h3>박스 재질과 내구성</h3>
+        <p>이사박스의 재질은 보통 골판지로, 내구성에 따라 A골, B골, C골, E골 등 다양한 종류가 있습니다. 포장이사 전문 업체들은 일반적으로 튼튼한 **이중 골판지(DW, Double Wall)**를 사용하여 운송 중 충격에 강하도록 설계된 박스를 사용합니다. 특히 습기에 약한 종이 박스의 단점을 보완하기 위해 코팅 처리된 박스나 플라스틱 재질의 바구니(컨테이너)를 병행 사용하는 추세가 증가하고 있습니다.</p>
+    </div>
+</section>
+
+<section id="recycling" aria-label="친환경 포장이사박스와 재활용">
+    <h2>♻️ 친환경 포장이사박스 및 재활용 가이드</h2>
+    <div class="text-section">
+        <p>2026년 환경 규제 강화와 함께, 포장이사박스의 친환경적 사용과 재활용이 중요한 이슈로 부각되고 있습니다. 이사 후 폐기되는 박스는 엄청난 양의 자원 낭비와 폐기물 처리를 유발하기 때문에, 환경 보호에 동참하는 이사 서비스를 선택하는 것이 현명합니다.</p>
+
+        <h3>친환경 이사 트렌드: 재사용 가능 박스</h3>
+        <p>최근에는 일회용 골판지 박스 대신 **플라스틱 재질의 다회용 이사 박스**를 사용하는 전문 업체들이 늘어나고 있습니다. 이는 내구성이 뛰어나 물품 보호에 탁월하며, 수백 번 재사용이 가능하여 폐기물 발생을 획기적으로 줄일 수 있습니다. 이러한 친환경 서비스는 이사 비용에는 약간의 영향을 줄 수 있으나, 장기적인 환경적 가치는 매우 높습니다. 이사 업체를 선정할 때 친환경 박스 사용 여부를 확인하는 것이 좋습니다.</p>
+        
+        <h3>사용된 박스의 올바른 재활용 방법</h3>
+        <p>골판지 박스를 재활용할 때는 몇 가지 주의사항이 있습니다. 박스에 부착된 운송장 스티커, 테이프, 그리고 기타 이물질(음식물 찌꺼기 등)은 반드시 제거해야 합니다. 테이프를 완전히 제거하지 않으면 재활용 공정에서 큰 문제가 발생할 수 있습니다. 젖거나 오염된 박스는 재활용이 어려울 수 있으니 깨끗하게 보관해야 합니다.</p>
+        <ul>
+            <li>**스티커 및 테이프 제거:** 칼이나 손으로 꼼꼼하게 분리합니다.</li>
+            <li>**이물질 제거:** 오염된 부분은 일반 쓰레기로 분리합니다.</li>
+            <li>**압착:** 부피를 줄이기 위해 박스를 평평하게 접습니다.</li>
+        </ul>
+        <p>자세한 종이류 재활용 기준은 환경부의 가이드를 참고하시기 바랍니다. <a href="https://www.me.go.kr/" class="external-link" target="_blank">환경부 공식 웹사이트 재활용 정보</a></p>
+    </div>
+</section>
+
+<section id="guide" aria-label="포장이사박스 전문 가이드 및 비용 절감 팁">
+    <h2>📚 포장이사박스 전문 가이드: 효율적인 포장과 비용 절감</h2>
+    
+    <div class="tip_card">
+        <h3>효율적인 포장 순서와 라벨링</h3>
+        <p>포장이사 업체가 박스를 가져와 포장하더라도, 고객이 미리 준비하면 이사 시간을 단축하고 비용을 절감할 수 있습니다.</p>
+        <ol>
+            <li>**필수품 박스 (Last In, First Out):** 이사 당일과 다음 날 바로 필요한 물품(세면도구, 비상약, 충전기 등)은 별도의 작은 박스에 포장하여 가장 나중에 싣고 가장 먼저 내리도록 요청합니다.</li>
+            <li>**무거운 물품은 작은 박스에:** 책이나 식기류처럼 무거운 물품은 반드시 '소 박스'에 포장해야 안전하고 운반이 용이합니다. 큰 박스에 무거운 것을 넣으면 운반 중 파손 위험이 높습니다.</li>
+            <li>**공간 활용 최대화:** 빈 공간이 생기지 않도록 내용물을 채우는 것이 중요합니다. 옷이나 수건 등으로 빈 공간을 채우면 충격 완화 효과도 있습니다.</li>
+            <li>**명확한 라벨링:** 모든 박스 외부에 '내용물(예: 주방 식기, 침실 옷)', '취급 주의 여부', '도착지 방 이름'을 명확히 표기하여 정리 시간을 대폭 줄일 수 있습니다.</li>
+        </ol>
+    </div>
+
+    <div class="tip_card">
+        <h3>포장이사박스와 이사 비용의 관계</h3>
+        <p>포장이사 비용은 작업 인원 수, 운송 거리, 짐의 양(부피)에 따라 결정됩니다. 짐의 양은 주로 사용된 포장이사박스의 개수와 크기로 측정됩니다. 따라서 불필요한 물품을 사전에 정리하여 짐의 부피를 줄이는 것만이 비용 절감의 가장 확실한 방법입니다.</p>
+        <ul>
+            <li>**이사 전 물품 정리:** 1년 이상 사용하지 않은 물품은 중고 판매 또는 폐기 처분합니다.</li>
+            <li>**계절 의류 압축:** 부피가 큰 겨울옷이나 이불 등은 압축팩을 사용하여 박스 개수를 줄입니다.</li>
+            <li>**정확한 견적 요청:** 미리 짐의 양을 최대한 정확하게 파악하여 견적 시 전달해야 당일 추가 요금 발생을 예방할 수 있습니다.</li>
+        </ul>
+        <p>포장이사 비용 산출에 대한 보다 객관적인 정보는 한국소비자원의 자료를 참고할 수 있습니다. <a href="https://www.kca.go.kr/" class="external-link" target="_blank">한국소비자원 이사 서비스 정보</a></p>
+    </div>
+</section>
+
+<section id="keywords" aria-label="전국 포장이사박스 관련 키워드 및 트렌드 분석">
+    <h2>🌍 전국 포장이사박스 관련 키워드 및 2026년 트렌드 분석</h2>
+    <div class="text-section">
+        <p>이사 수요는 지역별 특성, 부동산 시장 변동, 계절적 요인(손 없는 날, 방학 시즌)에 따라 크게 달라집니다. '포장이사박스' 키워드와 함께 검색되는 전국 유명 지역명 키워드, 자동완성 키워드, 그리고 연관 키워드를 분석하여 2026년 이사 트렌드와 지역별 특징을 파악하는 것은 이사 계획 수립에 필수적입니다.</p>
+        <p><strong>전국 주요 지역별 이사 키워드 (총 88개 이상)</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>분류</th>
+                    <th>주요 키워드 예시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>수도권/경기</td>
+                    <td>서울 포장이사박스, 강남구 포장이사박스, 서초구 포장이사박스, 송파구 포장이사박스, 경기도 이사박스, 수원 포장이사박스, 용인 포장이사박스, 고양 포장이사박스, 성남 이사박스, 부천 이사박스, 인천 포장이사박스, 청라 이사박스, 송도 이사박스, 김포 이사박스, 남양주 포장이사박스, 화성 포장이사박스, 동탄 이사박스, 평택 포장이사박스, 안산 이사박스, 의정부 이사박스, 파주 포장이사박스, 광명 이사박스, 하남 이사박스, 시흥 이사박스, 오산 이사박스</td>
+                </tr>
+                <tr>
+                    <td>영남권</td>
+                    <td>부산 포장이사박스, 해운대구 이사박스, 사하구 이사박스, 대구 포장이사박스, 수성구 이사박스, 달서구 이사박스, 울산 포장이사박스, 남구 이사박스, 창원 포장이사박스, 마산 이사박스, 진주 포장이사박스, 김해 이사박스, 포항 포장이사박스, 구미 포장이사박스, 경주 이사박스, 안동 이사박스</td>
+                </tr>
+                <tr>
+                    <td>호남권</td>
+                    <td>광주 포장이사박스, 서구 이사박스, 전주 포장이사박스, 군산 이사박스, 익산 포장이사박스, 목포 이사박스, 여수 포장이사박스, 순천 이사박스, 광양 이사박스</td>
+                </tr>
+                <tr>
+                    <td>충청권</td>
+                    <td>대전 포장이사박스, 유성구 이사박스, 세종 포장이사박스, 청주 포장이사박스, 천안 포장이사박스, 아산 이사박스, 충주 이사박스, 공주 이사박스</td>
+                </tr>
+                <tr>
+                    <td>강원/제주</td>
+                    <td>강릉 포장이사박스, 원주 이사박스, 춘천 포장이사박스, 속초 이사박스, 제주도 포장이사박스, 서귀포 이사박스</td>
+                </tr>
+                <tr>
+                    <td>연관 키워드</td>
+                    <td>포장이사박스 가격, 포장이사박스 대여, 이사박스 판매, 원룸 이사박스, 사무실 이사박스, 보관이사 박스, 포장재 재활용, 이사 폐기물 처리, 2026년 이사 비용</td>
+                </tr>
+                <tr>
+                    <td>자동완성 키워드</td>
+                    <td>포장이사박스 종류, 포장이사박스 규격, 포장이사박스 싸게, 포장이사박스 대여 비용, 포장이사박스 친환경</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>2026년 이사 트렌드 변화와 박스 관리</h3>
+        <p>2026년 이사 시장은 **스마트 포장**과 **친환경**이라는 두 가지 큰 축을 중심으로 변화하고 있습니다. 스마트 포장은 IoT 기술을 활용하여 박스의 위치와 내용물을 실시간으로 추적하는 시스템을 일부 고급 이사 서비스에서 도입하고 있으며, 이는 포장이사박스 라벨링의 디지털화를 가속화하고 있습니다.</p>
+        <p>또한, 1인 가구 증가에 따라 **원룸 이사박스** 및 소량 이사 서비스의 수요가 폭발적으로 증가했습니다. 이에 맞춰 중 박스보다 작은 규격의 박스 사용이 증가하고 있으며, 이사 비용 합리화를 위해 '반포장이사'를 선택하는 고객도 늘고 있습니다. 반포장이사는 포장만 업체가 하고, 잔짐 정리 및 풀기는 고객이 직접 하는 방식으로, 박스 사용량이 줄어들지는 않지만 인건비가 절약됩니다.</p>
+        <p>이사 준비의 효율성을 높이기 위한 객관적인 자료는 정부에서 제공하는 이사 서비스 가이드를 참고할 수 있습니다. <a href="https://www.kogl.or.kr/" class="external-link" target="_blank">공공누리 이사 관련 정보</a></p>
+    </div>
+</section>
+
+<section id="information_extended" aria-label="심층 정보: 이사박스 관리 및 안전성">
+    <h2>🔬 심층 정보: 이사박스 관리 및 이삿짐 안전성 확보</h2>
+    <div class="text-section">
+        <h3>포장이사박스 보관의 중요성</h3>
+        <p>이사 전후 포장이사박스의 보관은 이사 과정의 효율성과 물품의 안전성에 직접적인 영향을 미칩니다. 이사 직전에 포장된 박스는 습기와 온도 변화에 취약하므로, 보관이사 서비스를 이용할 경우 전문적인 **항온항습 시설**을 갖춘 보관 창고를 선택하는 것이 중요합니다. 특히 장기간 보관 시 박스 내부의 물품 변질(곰팡이, 변색 등)을 막기 위해 습도 관리가 필수적입니다.</p>
+        <p>**가정에서 박스 임시 보관 시 팁:**</p>
+        <ul>
+            <li>직사광선을 피하고, 습기가 적은 곳에 보관합니다.</li>
+            <li>바닥에 직접 닿지 않도록 팔레트나 비닐을 깔아 습기를 차단합니다.</li>
+            <li>무거운 박스는 아래쪽에, 가벼운 박스는 위쪽에 쌓아 박스 붕괴를 막습니다.</li>
+        </ul>
+        <p>보관 및 운송 중 발생 가능한 파손에 대비하여 모든 이사 업체는 **이사화물 배상책임보험**에 의무적으로 가입되어 있습니다. 계약 시 보험 가입 여부 및 보상 한도를 명확히 확인해야 합니다. 이와 관련된 법적 근거는 국토교통부의 운송 약관을 통해 확인할 수 있습니다. <a href="https://www.molit.go.kr/" class="external-link" target="_blank">국토교통부 공식 웹사이트 운송 약관</a></p>
+
+        <h3>손상 없는 가전/가구 포장 박스</h3>
+        <p>고가 가전제품(TV, 냉장고)이나 고가 가구는 일반 포장이사박스로는 안전을 보장하기 어렵습니다. 전문 업체는 이러한 물품에 대해 **에어캡 (뽁뽁이) 다중 포장**, **특수 충진재 사용**, 그리고 해당 가전/가구의 모양에 맞춘 **맞춤형 박스 또는 포장재**를 사용합니다. 특히 TV와 같은 액정 제품은 충격에 매우 취약하므로, 전용 박스(또는 커버) 사용과 함께 '취급주의' 라벨을 부착하고 수직 운송을 원칙으로 합니다.</p>
+        <p>이사 중 분실 및 파손 관련 피해 구제 절차는 공정거래위원회의 가이드라인을 참고하십시오. <a href="https://www.ftc.go.kr/" class="external-link" target="_blank">공정거래위원회 소비자 피해구제 정보</a></p>
+
+        <h3>이사 박스 물량 예측의 과학</h3>
+        <p>포장이사박스 물량을 정확히 예측하는 것은 견적의 정확도를 높이는 핵심 요소입니다. 일반적으로 거주 면적에 따라 다음과 같은 평균 박스 수량이 산출되지만, 이는 가이드라인일 뿐입니다.</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>거주 면적 (평)</th>
+                    <th>평균 박스 수량 (중 박스 기준)</th>
+                    <th>주요 대상</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>10평 이하</td>
+                    <td>20 ~ 30개</td>
+                    <td>원룸, 오피스텔 (1인 가구)</td>
+                </tr>
+                <tr>
+                    <td>20평대</td>
+                    <td>50 ~ 70개</td>
+                    <td>2~3인 가구, 소형 아파트</td>
+                </tr>
+                <tr>
+                    <td>30평대</td>
+                    <td>80 ~ 100개</td>
+                    <td>4인 가족, 일반 아파트</td>
+                </tr>
+                <tr>
+                    <td>40평 이상</td>
+                    <td>120개 이상</td>
+                    <td>대형 가구, 짐이 많은 경우</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>정확한 물량 예측을 위해서는 견적 담당자의 **현장 방문 견적**이 필수적입니다. 이사 업체는 이 데이터를 기반으로 적절한 인력, 운송 차량(톤수), 그리고 포장이사박스 및 부자재의 양을 결정하게 됩니다. 이러한 전문적인 접근 방식이 이사 당일의 혼란과 추가 비용 발생을 최소화합니다.</p>
+    </div>
+</section>
+
+<section id="quote_request" aria-label="2026년 상세 맞춤 견적 요청">
+    <h2>📝 2026년 상세 맞춤 견적 요청</h2>
+    <form action="/submit-detailed-estimate" method="POST" aria-describedby="detailed_quote_form">
+        <p id="detailed_quote_form">이사 유형, 짐의 특성, 추가 옵션 등을 상세히 작성해주시면, 포장이사박스 물량 예측을 포함한 가장 정확한 견적을 안내해 드립니다. 체류시간 증대를 위해 상세 입력 필드를 모두 채워주세요.</p>
+        
+        <label for="이사유형">이사 유형 선택 (필수)</label>
+        <select id="이사유형" name="type" required>
+            <option value="">이사 유형을 선택하세요</option>
+            <option value="포장이사">포장이사 (Full-Service)</option>
+            <option value="반포장이사">반포장이사 (Half-Service)</option>
+            <option value="원룸이사">원룸/오피스텔 이사</option>
+            <option value="사무실이사">사무실/기업이사 (Box-heavy)</option>
+            <option value="보관이사">보관이사 (Storage)</option>
+        </select>
+
+        <label for="거주면적">현재 거주 면적 (평/제곱미터)</label>
+        <input type="text" id="거주면적" name="area" placeholder="예: 33평 또는 109㎡" required />
+
+        <label for="출발지">출발지 상세 주소 (동 단위까지)</label>
+        <input type="text" id="출발지" name="from_address" placeholder="예: 서울 강남구 역삼동" required />
+
+        <label for="도착지">도착지 상세 주소 (동 단위까지)</label>
+        <input type="text" id="도착지" name="to_address" placeholder="예: 부산 해운대구 우동" required />
+        
+        <label for="출발지_층수">출발지 건물 층수 및 형태</label>
+        <input type="text" id="출발지_층수" name="from_floor" placeholder="예: 아파트 12층 (엘리베이터 유/무)" required />
+        
+        <label for="도착지_층수">도착지 건물 층수 및 형태</label>
+        <input type="text" id="도착지_층수" name="to_floor" placeholder="예: 빌라 3층 (사다리차 필요/불필요)" required />
+
+        <label for="이사일">이사 예정일 (필수)</label>
+        <input type="date" id="이사일" name="date" required />
+
+        <label for="짐_특성">짐의 특성 (선택)</label>
+        <select id="짐_특성" name="luggage_type">
+            <option value="표준">표준 (일반적인 짐의 양)</option>
+            <option value="많음">매우 많음 (수집품, 책 등)</option>
+            <option value="적음">적음 (미니멀 라이프)</option>
+        </select>
+        
+        <label for="추가_옵션">추가 옵션 선택 (복수 선택 가능)</label>
+        <select id="추가_옵션" name="options" multiple>
+            <option value="에어컨분리">에어컨 분리/설치</option>
+            <option value="벽걸이TV">벽걸이 TV 분리/설치</option>
+            <option value="입주청소">이사 후 입주청소</option>
+            <option value="보관서비스">단기/장기 보관 서비스</option>
+            <option value="친환경박스">친환경 플라스틱 박스 요청</option>
+        </select>
+
+        <label for="연락처">연락처 (필수)</label>
+        <input type="tel" id="연락처" name="phone" placeholder="010-1234-5678" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required />
+        
+        <label for="문의사항">추가 문의 및 특이사항</label>
+        <textarea id="문의사항" name="notes" rows="4" placeholder="예: 고가 미술품 포장 요청, 특정 시간대 작업 요청 등"></textarea>
+
+        <button type="submit" class="cta">2026년 포장이사박스 맞춤 견적 요청하기</button>
+    </form>
+</section>
+
+<section id="faq" aria-label="자주 묻는 질문 FAQ">
+    <h2>❓ 자주 묻는 질문 (FAQ)</h2>
+    <dl class="faq">
+        <dt>포장이사박스 규격은 이사 비용에 영향을 주나요?</dt>
+        <dd>직접적인 박스 규격보다는 박스 총량(부피)이 비용에 영향을 줍니다. 규격은 안전을 위해 내용물에 따라 달라지는 것이 원칙입니다. 소 박스에 무거운 물건을 담아 박스 손상을 막는 것이 장기적으로 비용을 절감하는 방법입니다.</dd>
+
+        <dt>2026년 기준, 친환경 이사박스를 사용하면 비용이 더 비싼가요?</dt>
+        <dd>일반적으로 다회용 플라스틱 친환경 박스를 사용하는 서비스는 일반 골판지 박스 서비스보다 약간 더 높은 비용이 발생할 수 있습니다. 하지만 이는 이사 업체의 정책과 서비스 범위에 따라 달라지므로, 견적 시 반드시 확인이 필요합니다.</dd>
+
+        <dt>포장이사 당일, 박스 포장을 제가 도울 수 있나요?</dt>
+        <dd>전문 포장이사는 고객의 도움 없이 모든 포장 작업을 수행하는 것을 원칙으로 합니다. 다만, 귀중품이나 개인적인 물품(속옷 등)은 고객이 직접 포장하고 관리하는 것을 권장하며, 이는 이사 분쟁을 최소화하는 방법입니다.</dd>
+
+        <dt>이사 후 사용된 박스 처리는 어떻게 하나요?</dt>
+        <dd>일반적인 포장이사를 이용하신 경우, 이사 후 일정 기간(보통 당일 또는 다음 날) 박스를 수거해 갑니다. 고객이 직접 포장하거나 잔여 박스가 있을 경우, 깨끗이 접어 재활용 분리수거를 해야 합니다.</dd>
+    </dl>
+    
+    <div class="text-section" style="margin-top: 40px; border-top: 1px dashed #ccc; padding-top: 20px;">
+        <h3>참고 가능한 외부 신뢰 사이트</h3>
+        <p>포장이사 및 박스 관련 정보를 위해 공인된 기관의 정보를 참고하십시오.</p>
+        <ul>
+            <li><a href="https://namu.wiki/w/%EC%9D%B4%EC%82%AC" class="external-link" target="_blank">나무위키 - 이사</a>: 이사에 대한 일반적인 정보 및 팁 제공</li>
+            <li><a href="https://www.korea.go.kr/" class="external-link" target="_blank">대한민국 정부포털</a>: 이사 관련 행정 정보 및 절차 안내</li>
+            <li><a href="https://www.keco.or.kr/" class="external-link" target="_blank">한국환경공단</a>: 폐기물 및 재활용 정보 (이사 박스 재활용 관련)</li>
+            <li><a href="https://www.naver.com/" class="external-link" target="_blank">네이버 이사 서비스 정보</a>: 네이버 플레이스 및 이사 관련 공식 정보</li>
+            <li><a href="https://www.youtube.com/@kbsnews" class="external-link" target="_blank">KBS News (이사 관련 보도)</a>: 이사 시장 동향 및 소비자 피해 사례 보도</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <section id="contact" aria-label="연락처 및 영업시간">
+        <h2>📞 문의 및 정보</h2>
+        <p><strong>대표 연락처: 010-1234-5678</strong> | 이메일: info@yourdomain.kr</p>
+        <p>사업장 소재지: 대한민국 전국 포장이사박스 정보 센터</p>
+        <p>영업시간: 월~토 09:00~19:00 (일요일 및 공휴일 휴무)</p>
+    </section>
+    <p style="text-align:center; color:#7f8c8d; font-size:0.9rem; margin-top: 20px;">&copy; 2026 포장이사박스 전문 가이드 | 사업자등록번호 123-45-67890 | 정보 제공에 대한 책임은 해당 기관에 있습니다.</p>
+</footer>
+</body>
 </html>
